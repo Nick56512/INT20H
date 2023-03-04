@@ -1,3 +1,7 @@
+using DAL.Models;
+using Fluent.Infrastructure.FluentModel;
+using Microsoft.AspNetCore.Identity;
+
 namespace WorkWaveAPI
 {
     public class Program
@@ -12,6 +16,7 @@ namespace WorkWaveAPI
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
             var app = builder.Build();
 
