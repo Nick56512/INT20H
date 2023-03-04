@@ -67,7 +67,10 @@ namespace WorkWaveAPI.Controllers
                 if (res.Succeeded)
                 {
                     var claims = new Claim[] { new Claim(ClaimTypes.Name, user.UserName) };
-
+                    //user.PortfolioProjects.Add(new PortfolioProject
+                    //{
+                    //    Title = ""
+                    //});
                     var timeNow = DateTime.Now;
                     var token = new JwtSecurityToken
                     (
@@ -85,6 +88,11 @@ namespace WorkWaveAPI.Controllers
                         name = user.Name,
                         lastname = user.Lastname,
                         email = user.Email,
+                        city=user.City,
+                        country=user.Country,
+                        workExperience= user.WorkExperience,
+                        userDescription=user.DescriptionUser,
+                        portfolio=user.PortfolioProjects
                     };
                     return Json(response);
                 }

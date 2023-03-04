@@ -12,5 +12,9 @@ namespace DAL.Repository
         public ProjectCategoryRepository(ApplicationDbContext dbContext) : base(dbContext)
         {
         }
+        public int GetCategoryIdByName(string name)
+        {
+            return dbSet.Where(x=>x.Name==name).First().Id;
+        }
     }
 }

@@ -18,6 +18,6 @@ namespace DAL.Models
         public string OwnerId { get; set; }
         public virtual User Owner { get; set; }
         public int ProjectCategoryId { get; set; }
-        public virtual ProjectCategory Category { get; set; }
+        public virtual ProjectCategory ProjectCategory { get; set; }
     }
 }
