@@ -17,12 +17,16 @@ namespace WorkWaveAPI.Controllers
         UserManager<User> _userManager;
         IRepository<Project> _projectsRepository;
         ProjectCategoryRepository _projectCategory;
-
-        public ProjectController(UserManager<User>_userManager,IRepository<Project>projectRepository, ProjectCategoryRepository _projectCategory) {
+        MemberRepository _memberRepository;
+        public ProjectController(UserManager<User>_userManager
+            ,IRepository<Project>projectRepository
+            , ProjectCategoryRepository _projectCategory,
+            MemberRepository memberRepository) {
         
             this._userManager=_userManager; 
             this._projectsRepository=projectRepository;
             this._projectCategory = _projectCategory;
+            this._memberRepository=memberRepository;
         }
 
         [HttpPost("/addNewProject")]
@@ -85,5 +89,32 @@ namespace WorkWaveAPI.Controllers
             }
             return BadRequest(ModelState);
         }
+        [HttpGet("/getProject/{projectId}")]
+        public async Task<IActionResult>Get(int projectId)
+        {
+            var proj=_projectsRepository.GetById(projectId);
+            if(proj != null)
+            {
+                var projectMembers = _memberRepository.GetAll().Where(x => x.ProjectId == proj.Id);
+                List<User> users = new List<User>();
+                foreach (var member in projectMembers)
+                {
+                    users.Add(await _userManager.FindByIdAsync(member.UserId));
+                }
+                var res = new
+                {
+                    projectName = proj.Name,
+                    projectDescriptio = proj.Description,
+                    isOpen = proj.IsOpen,
+                    rating = proj.Rating,
+                    categories = proj.Categories.Select(x => x.Name),
+                    members = users.ToArray(),
+                    owner = proj.Owner
+                };
+                return Ok(res);
+            }
+            return BadRequest();
+        }
+
     }
 }

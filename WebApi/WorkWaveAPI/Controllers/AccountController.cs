@@ -66,10 +66,6 @@ namespace WorkWaveAPI.Controllers
                 if (res.Succeeded)
                 {
                     var claims = new Claim[] { new Claim(ClaimTypes.Name, user.UserName) };
-                    //user.PortfolioProjects.Add(new PortfolioProject
-                    //{
-                    //    Title = ""
-                    //});
                     var timeNow = DateTime.Now;
                     var token = new JwtSecurityToken
                     (
