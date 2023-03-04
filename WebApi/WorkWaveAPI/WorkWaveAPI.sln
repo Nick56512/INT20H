@@ -5,9 +5,7 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkWaveAPI", "WorkWaveAPI.csproj", "{A6602389-7614-48C3-833A-48D1CCDD4DC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "..\DAL\DAL.csproj", "{318EE64C-145D-4970-AAFB-63D50071E6FB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "..\BLL\BLL.csproj", "{546079E0-9413-4AD7-A05B-A8096BACA3D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "..\DAL\DAL.csproj", "{318EE64C-145D-4970-AAFB-63D50071E6FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +21,6 @@ Global
 		{318EE64C-145D-4970-AAFB-63D50071E6FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{318EE64C-145D-4970-AAFB-63D50071E6FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{318EE64C-145D-4970-AAFB-63D50071E6FB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{546079E0-9413-4AD7-A05B-A8096BACA3D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{546079E0-9413-4AD7-A05B-A8096BACA3D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{546079E0-9413-4AD7-A05B-A8096BACA3D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{546079E0-9413-4AD7-A05B-A8096BACA3D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

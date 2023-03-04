@@ -13,8 +13,8 @@ namespace DAL.Models
         public string Description { get; set; }
         public bool IsOpen { get; set; }
         public double Rating { get; set; }
-
-        public User Owner { get; set; }
+        public string OwnerId { get; set; }
+        public virtual User Owner { get; set; }
         public virtual ICollection<ProjectCategory> Categories { get; set;}
     }
 }

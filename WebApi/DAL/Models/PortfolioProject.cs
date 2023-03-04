@@ -14,9 +14,10 @@ namespace DAL.Models
         public string Description { get; set; }
         public string Url { get; set; }
         public string PhotoPath { get; set; }
-        [NotMapped]
         public string PhotoBase64 { get; set; }
-        public User Owner { get; set; }
-        public ProjectCategory Category { get; set; }
+        public string OwnerId { get; set; }
+        public virtual User Owner { get; set; }
+        public int ProjectCategoryId { get; set; }
+        public virtual ProjectCategory Category { get; set; }
     }
 }
