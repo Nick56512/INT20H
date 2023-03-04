@@ -9,6 +9,7 @@ using WorkWaveAPI.ApiRequestModels;
 using System.IO;
 using Microsoft.AspNetCore.Hosting.Server;
 using WorkWaveAPI.Managers;
+using Microsoft.EntityFrameworkCore;
 
 namespace WorkWaveAPI.Controllers
 {
@@ -58,7 +59,7 @@ namespace WorkWaveAPI.Controllers
                 PortfolioProject portfolioProject = _portfolioProjectRepository.GetById(portfolioProjectId);
                 if (portfolioProject != null)
                 {
-                    _portfolioProjectRepository.UpdateAsync(portfolioProject);
+                    await _portfolioProjectRepository.UpdateAsync(portfolioProject);
                     return Ok(portfolioProject);
                 }
             }
@@ -71,9 +72,9 @@ namespace WorkWaveAPI.Controllers
         {
             if (ModelState.IsValid)
             {
-                User currentUser = await _userManager.GetUserByClaimsIdentityNameAsync(User.Identity);
-                int id = _projectCategory.GetCategoryIdByName(model.ProjectCategoryName);
-
+                User currentUser = await _userManager.GetUserByClaimsIdentityNameAsync(User.Identity!);
+                var category = _projectCategory.GetAll().FirstOrDefault(c => c.Name == model.ProjectCategoryName);
+                int id = category!=null ? category.Id : -1;
                 string uploads = Path.Combine(_host.WebRootPath, "uploads");
                 string filePath= await FileManager.CopyToAsync(model.PhotoFile, uploads);
                 PortfolioProject portfolio = new PortfolioProject 

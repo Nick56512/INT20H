@@ -42,10 +42,10 @@ namespace WorkWaveAPI.Controllers
         {
             if(projectMember != 0)
             {
-                var member=_membersRepository.GetById(projectMember);
+                var member= await _membersRepository.GetByIdAsync(projectMember);
                 if (member != null)
                 {
-                    _membersRepository.Remove(member);
+                    await _membersRepository.RemoveAsync(member);
                     return Ok(member);
                 }
             }
@@ -54,7 +54,7 @@ namespace WorkWaveAPI.Controllers
 
 
         [HttpPost("/addMember")]
-        public async Task<IActionResult> RemoveProjectMember([FromBody] AddMemberToProjectModel model)
+        public async Task<IActionResult> AddMemberToProject([FromBody] AddMemberToProjectModel model)
         {
             if (ModelState.IsValid)
             {

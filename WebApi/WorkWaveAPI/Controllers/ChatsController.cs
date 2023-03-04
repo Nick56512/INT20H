@@ -49,7 +49,7 @@ namespace WorkWaveAPI.Controllers
         }
 
         [HttpGet]
-        [Route("/getchatforuser")]
+        [Route("/getchatforuser/{userId}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public ActionResult GetChatForUser(int userId)
         {
