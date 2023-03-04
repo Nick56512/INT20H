@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace DAL.Models
 {
-    internal class ProjectCategory
+    public class ProjectCategory
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public virtual ICollection<Project> Projects { get; set; }
     }
 }
