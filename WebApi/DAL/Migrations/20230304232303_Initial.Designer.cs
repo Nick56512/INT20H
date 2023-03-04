@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WorkWaveAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230304222910_Initial")]
+    [Migration("20230304232303_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -331,11 +331,9 @@ namespace WorkWaveAPI.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("PhotoBase64")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhotoPath")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")

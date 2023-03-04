@@ -328,11 +328,9 @@ namespace WorkWaveAPI.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("PhotoBase64")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhotoPath")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
