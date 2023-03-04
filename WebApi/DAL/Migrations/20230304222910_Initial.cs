@@ -163,6 +163,8 @@ namespace WorkWaveAPI.Migrations
                     Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DescriptionUser = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhotoPath = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhotoBase64 = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TeamId = table.Column<int>(type: "int", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -234,7 +236,7 @@ namespace WorkWaveAPI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SenderId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    SenderId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ChatId = table.Column<int>(type: "int", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -246,7 +248,8 @@ namespace WorkWaveAPI.Migrations
                         name: "FK_Messages_AspNetUsers_SenderId",
                         column: x => x.SenderId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Messages_Chats_ChatId",
                         column: x => x.ChatId,
@@ -265,8 +268,9 @@ namespace WorkWaveAPI.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhotoPath = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OwnerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                    PhotoBase64 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OwnerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProjectCategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -275,10 +279,11 @@ namespace WorkWaveAPI.Migrations
                         name: "FK_PortfolioProjects_AspNetUsers_OwnerId",
                         column: x => x.OwnerId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PortfolioProjects_ProjectCategories_CategoryId",
-                        column: x => x.CategoryId,
+                        name: "FK_PortfolioProjects_ProjectCategories_ProjectCategoryId",
+                        column: x => x.ProjectCategoryId,
                         principalTable: "ProjectCategories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -294,7 +299,7 @@ namespace WorkWaveAPI.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsOpen = table.Column<bool>(type: "bit", nullable: false),
                     Rating = table.Column<double>(type: "float", nullable: false),
-                    OwnerId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    OwnerId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -303,7 +308,8 @@ namespace WorkWaveAPI.Migrations
                         name: "FK_Projects_AspNetUsers_OwnerId",
                         column: x => x.OwnerId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -312,7 +318,7 @@ namespace WorkWaveAPI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProjectId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -322,7 +328,8 @@ namespace WorkWaveAPI.Migrations
                         name: "FK_Members_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Members_Projects_ProjectId",
                         column: x => x.ProjectId,
@@ -450,14 +457,14 @@ namespace WorkWaveAPI.Migrations
                 column: "SenderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PortfolioProjects_CategoryId",
-                table: "PortfolioProjects",
-                column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_PortfolioProjects_OwnerId",
                 table: "PortfolioProjects",
                 column: "OwnerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PortfolioProjects_ProjectCategoryId",
+                table: "PortfolioProjects",
+                column: "ProjectCategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProjectProjectCategory_ProjectsId",

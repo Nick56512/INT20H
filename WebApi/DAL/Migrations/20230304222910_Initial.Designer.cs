@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WorkWaveAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230304160745_Initial")]
+    [Migration("20230304222910_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -109,6 +109,7 @@ namespace WorkWaveAPI.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -135,6 +136,7 @@ namespace WorkWaveAPI.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("SenderId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
@@ -158,19 +160,24 @@ namespace WorkWaveAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("OwnerId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("PhotoBase64")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhotoPath")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProjectCategoryId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -182,9 +189,9 @@ namespace WorkWaveAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
-
                     b.HasIndex("OwnerId");
+
+                    b.HasIndex("ProjectCategoryId");
 
                     b.ToTable("PortfolioProjects");
                 });
@@ -209,6 +216,7 @@ namespace WorkWaveAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("OwnerId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<double>("Rating")
@@ -321,6 +329,14 @@ namespace WorkWaveAPI.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("PhotoBase64")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhotoPath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -541,7 +557,9 @@ namespace WorkWaveAPI.Migrations
 
                     b.HasOne("DAL.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Project");
 
@@ -558,7 +576,9 @@ namespace WorkWaveAPI.Migrations
 
                     b.HasOne("DAL.Models.User", "Sender")
                         .WithMany()
-                        .HasForeignKey("SenderId");
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Chat");
 
@@ -567,26 +587,30 @@ namespace WorkWaveAPI.Migrations
 
             modelBuilder.Entity("DAL.Models.PortfolioProject", b =>
                 {
-                    b.HasOne("DAL.Models.ProjectCategory", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
+                    b.HasOne("DAL.Models.User", "Owner")
+                        .WithMany("PortfolioProjects")
+                        .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DAL.Models.User", "Owner")
-                        .WithMany("PortfolioProjects")
-                        .HasForeignKey("OwnerId");
-
-                    b.Navigation("Category");
+                    b.HasOne("DAL.Models.ProjectCategory", "ProjectCategory")
+                        .WithMany()
+                        .HasForeignKey("ProjectCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Owner");
+
+                    b.Navigation("ProjectCategory");
                 });
 
             modelBuilder.Entity("DAL.Models.Project", b =>
                 {
                     b.HasOne("DAL.Models.User", "Owner")
                         .WithMany()
-                        .HasForeignKey("OwnerId");
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Owner");
                 });
