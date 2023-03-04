@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 
 namespace DAL.Models
 {
-    public class Project
+    public class Achievment
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public bool IsOpen { get; set; }
-        public double Rating { get; set; }
+        public string ImagePath { get; set; }
+        public virtual ICollection<User> Users { get; set; }
 
-        public User Owner { get; set; }
-        public virtual ICollection<ProjectCategory> Categories { get; set;}
     }
 }
