@@ -24,15 +24,21 @@ namespace WorkWaveAPI.Controllers
         }
         [HttpPost]
         [Route("/registration")]
-        public async Task<ActionResult> UserRegistration([FromBody] RegistrationModel model)
+        public async Task<ActionResult> Registration([FromBody] RegistrationModel model)
         {
             if (ModelState.IsValid)
             {
-                UserDto user = new UserDto
+                User user = new User
                 {
+                    Id=Guid.NewGuid().ToString(),
                     Email = model.Email,
                     Name = model.Name,
-                    Lastname = model.Lastname
+                    Lastname = model.Lastname,
+                    City=model.City,
+                    Country=model.Country,
+                    WorkExperience=model.WorkExperience,
+                    DescriptionUser=model.UserDescription,
+                    UserName=model.UserName,
                 };
                 var result = await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -92,7 +98,7 @@ namespace WorkWaveAPI.Controllers
         [HttpPost("/logout")]
         public async Task<ActionResult> UserLogout()
         {
-            await signInManager.SignOut();
+            await signInManager.SignOutAsync();
             return NoContent();
         }
     }

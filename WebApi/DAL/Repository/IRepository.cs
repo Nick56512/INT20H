@@ -11,7 +11,7 @@ namespace DAL.Repository
         T GetById(int id);
         Task<T> GetByIdAsync(int id);
 
-        IEnumerable<T> GetAll();
+        IQueryable<T> GetAll();
 
         void Add(T item);
         Task AddAsync(T item);

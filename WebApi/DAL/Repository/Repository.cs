@@ -30,7 +30,7 @@ namespace DAL.Repository
             await db.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetAll()
+        public IQueryable<T> GetAll()
         {
             return dbSet;
         }

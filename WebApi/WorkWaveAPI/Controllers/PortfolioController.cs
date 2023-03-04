@@ -1,5 +1,4 @@
-﻿using BLL.Extensions;
-using DAL.Extensions;
+﻿using DAL.Extensions;
 using DAL.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;

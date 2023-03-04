@@ -18,5 +18,6 @@ namespace DAL.Models
         public virtual ICollection<PortfolioProject> PortfolioProjects { get; set;}
         public virtual ICollection<Chat> Chats { get; set; }
         public virtual ICollection<Achievment> Achievments { get; set; }
+
     }
 }

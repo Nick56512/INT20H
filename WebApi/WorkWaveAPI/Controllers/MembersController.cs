@@ -6,9 +6,6 @@ namespace WorkWaveAPI.Controllers
     [Route("api/v2/[controller]")]
     public class MembersController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+      
     }
 }
