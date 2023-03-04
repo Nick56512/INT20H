@@ -132,3 +132,7 @@ $RECYCLE.BIN/
 .DS_Store
 
 _NCrunch*
+/WebApi/WorkWaveAPI/.vs/ProjectEvaluation/workwaveapi.metadata.v5.2
+/WebApi/WorkWaveAPI/.vs/ProjectEvaluation/workwaveapi.projects.v5.2
+/WebApi/WorkWaveAPI/.vs/WorkWaveAPI/v17/.futdcache.v2
+/WebApi/WorkWaveAPI/.vs/WorkWaveAPI/DesignTimeBuild/.dtbcache.v2
