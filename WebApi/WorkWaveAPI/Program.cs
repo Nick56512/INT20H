@@ -1,5 +1,5 @@
+using DAL;
 using DAL.Models;
-using Fluent.Infrastructure.FluentModel;
 using Microsoft.AspNetCore.Identity;
 
 namespace WorkWaveAPI
