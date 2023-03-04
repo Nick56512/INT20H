@@ -74,13 +74,14 @@ namespace WorkWaveAPI.Controllers
             {
                 User currentUser = await _userManager.GetUserByClaimsIdentityNameAsync(User.Identity!);
                 var category = _projectCategory.GetAll().FirstOrDefault(c => c.Name == model.ProjectCategoryName);
-                int id = category!=null ? category.Id : -1;
+                //int id = category!=null ? category.Id : -1;
+                int categoryId = _projectCategory.GetCategoryIdByName(model.ProjectCategoryName);
                 string uploads = Path.Combine(_host.WebRootPath, "uploads");
                 string filePath= await FileManager.CopyToAsync(model.PhotoFile, uploads);
                 PortfolioProject portfolio = new PortfolioProject 
                 { 
                     Title= model.Title,
-                    ProjectCategoryId=id,
+                    ProjectCategoryId=categoryId,
                     Description=model.Description,
                     OwnerId=currentUser.Id,
                     PhotoPath=filePath,
@@ -92,7 +93,7 @@ namespace WorkWaveAPI.Controllers
 
                 return Ok(portfolio);
             }
-            return BadRequest();
+           return BadRequest();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using DAL.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -22,8 +23,7 @@ namespace WorkWaveAPI.Controllers
             this.userManager = userManager;
             this.signInManager = signInManager;
         }
-        [HttpPost]
-        [Route("/registration")]
+        [HttpPost("/registration")]
         public async Task<ActionResult> Registration([FromBody] RegistrationModel model)
         {
             if (ModelState.IsValid)
@@ -56,8 +56,7 @@ namespace WorkWaveAPI.Controllers
             return BadRequest(ModelState);
         }
 
-        [HttpPost]
-        [Route("/login")]
+        [HttpPost("/login")]
         public async Task<ActionResult> Token([FromBody] LoginModel model)
         {
             if (ModelState.IsValid)
@@ -85,6 +84,7 @@ namespace WorkWaveAPI.Controllers
                     var response = new
                     {
                         access_token = encodedJwt,
+                        userId=user.Id,
                         name = user.Name,
                         lastname = user.Lastname,
                         email = user.Email,
