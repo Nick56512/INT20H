@@ -33,7 +33,7 @@ function SignUp(){
 			let userData = {
 				"name": inputFirstName.value,
 				"lastname": inputLastName.value,
-				"email": inputEmail.value,
+				"login": inputEmail.value,
 				"password": inputPassword.value,
 				"avatar": inputFile.value,
 				"userName": inputUserame.value,

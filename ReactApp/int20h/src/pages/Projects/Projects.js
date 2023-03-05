@@ -34,7 +34,7 @@ function Projects(){
 		]
 
 		const [projects, setProjects] = useState(projs)
-		const [categories, setCategories] = useState([])
+		const [categories, setCategories] = useState([{name: 'Frontend'}, {name: 'Backend'},{name: 'C++'},{name: 'C#'},{name: 'Mobile Develop'},{name: 'Devops'},{name: 'Swift'},{name: 'Design'}])
 		const [catForList, setCatForList] = useState([])
 		const [cat, setCat] = useState('Усі')
 		
@@ -64,26 +64,11 @@ function Projects(){
 			}
 			
 		}, [searchQuery, filteredPosts])
-
-	async function fetchCategories() {
-      const response = await fetch('http://mirik297-001-site1.ftempurl.com/getallcategories')
-      const data = await response.json()
-      await setCategories(data)
-		console.log(categories)
-		cut()
-    }
-
-	 async function fetchProjects() {
-      const response = await fetch('http://mirik297-001-site1.ftempurl.com/getAllProjects')
-      const data = await response.json()
-      await setProjects(data)
-
-    }
 			
 
 	useEffect(() => {
-    fetchCategories();
-	}, [catForList])
+    cut()
+	}, [])
 
 
 
