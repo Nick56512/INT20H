@@ -2,6 +2,7 @@
 using DAL.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using WorkWaveAPI.ApiRequestModels;
 
 namespace WorkWaveAPI.Controllers
 {
+    [DisableCors]
     [ApiController]
     [Route("api/v2/[controller]")]
     public class TeamsController : Controller

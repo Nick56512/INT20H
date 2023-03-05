@@ -1,12 +1,14 @@
 ﻿using DAL.Extensions;
 using DAL.Models;
 using DAL.Repository;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
 namespace WorkWaveAPI.Controllers
 {
+    [DisableCors]
     [ApiController]
     [Route("api/v2/[controller]")]
     public class AchivmentController : Controller

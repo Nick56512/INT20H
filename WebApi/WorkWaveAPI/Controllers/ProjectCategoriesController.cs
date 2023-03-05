@@ -1,10 +1,12 @@
 ﻿using DAL.Models;
 using DAL.Repository;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace WorkWaveAPI.Controllers
 {
+    [DisableCors]
     [ApiController]
     [Route("api/v2/[controller]")]
     public class ProjectCategoriesController : Controller

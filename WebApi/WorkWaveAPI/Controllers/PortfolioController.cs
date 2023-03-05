@@ -10,9 +10,11 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting.Server;
 using WorkWaveAPI.Managers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Cors;
 
 namespace WorkWaveAPI.Controllers
 {
+    [DisableCors]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/v2/[controller]")]
