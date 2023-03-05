@@ -1,4 +1,5 @@
-﻿using DAL.Models;
+﻿using DAL.Extensions;
+using DAL.Models;
 using DAL.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -49,22 +50,22 @@ namespace WorkWaveAPI.Controllers
         }
 
         [HttpGet]
-        [Route("/getchatforuser/{userId}")]
+        [Route("/getMyChats")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public ActionResult GetChatForUser(int userId)
+        public async Task<ActionResult> GetChatForUser()
         {
-            if (!User.Identity.IsAuthenticated)
-                return BadRequest();
-
-            var userIdStr = userId.ToString();
-
-            var chats = repository.GetAll().Where(c => c.Users.FirstOrDefault(u => u.Id == userIdStr) != null);
-
-            return Json(chats);
+            User userC = await user.GetUserByClaimsIdentityNameAsync(User.Identity);
+            if (userC != null)
+            {
+                var userIdStr = userC.Id.ToString();
+                var chats = repository.GetAll().Where(c => c.Users.FirstOrDefault(u => u.Id == userIdStr) != null);
+                return Json(chats);
+            }
+            return BadRequest();
         }
 
         [HttpGet]
-        [Route("/getchatbyid")]
+        [Route("/getchatbyid/{id}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult> GetChatById(int id)
         {

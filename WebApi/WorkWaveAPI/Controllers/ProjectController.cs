@@ -106,6 +106,7 @@ namespace WorkWaveAPI.Controllers
                 var categories = _projectsRepository.GetAll()
                     .Where(x => x.Id == proj.Id)
                     .Include(x => x.Categories)
+                    .Include(x=>x.Owner)
                     .First();
                 var res = new
                 {
