@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import AppRoutes from './AppRoutes';
+import Header from './sections/Header/Header';
+import './styles/css/index.css'
+import { StateContext } from './context/context'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+  static displayName = App.name;
+
+  render() {
+    return (
+      <div>
+        <StateContext>
+          <Header/>
+            <div>
+              <Routes>
+                {AppRoutes.map((route, index) => {
+                  const { element, ...rest } = route;
+                  return <Route key={index} {...rest} element={element} />;
+                })}
+              </Routes>
+            </div>
+        </StateContext>
+      </div>
+    );
+  }
 }
-
-export default App;

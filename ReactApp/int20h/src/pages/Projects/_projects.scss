@@ -1,0 +1,57 @@
+.projects-page-main{
+	display: flex;
+
+	.projects-page{
+		@include adaptiv-value("margin-top", 80, 20, 0);
+	}
+
+	.projects-page__block-1{
+		flex: 1 1 30vw;
+	}
+
+	.projects-page__block-2{
+		flex: 1 1 50vw;
+	}
+	input{
+		width: 80%;
+		height: 40px;
+	}
+}
+
+
+
+
+
+
+.project{
+			margin-bottom: 12px;
+			padding: 8px 15px;
+			border-radius: 20px;
+			background: white;
+			color:#0C1117;
+			
+			
+
+			.project-title{
+				@include adaptiv-value("font-size", 20, 15, 0);
+				font-weight: 600;
+				padding-bottom: 3px;
+			}
+
+			.project-description{
+				@include adaptiv-value("font-size", 15, 13, 0);
+				padding-bottom: 8px;
+			}
+
+			.project-categories{
+				display: flex;
+				gap: 5px;
+				.project-categories-item{
+					@include adaptiv-value("font-size", 14, 12, 0);
+					background: rgba(12, 17, 23, 0.32);
+					border: 0.922414px solid #0C1117;
+					border-radius: 18.4483px;
+					padding: 3px 10px;
+				}
+		}
+	}

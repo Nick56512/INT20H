@@ -1,0 +1,52 @@
+.main__title{
+	font-weight: 800;
+	@include adaptiv-value("font-size", 50, 25, 0);
+	line-height: 61px;
+	@include adaptiv-value("margin-top", 25, 10, 0);
+	@include adaptiv-value("margin-bottom", 25, 10, 0);
+	color: #FFFFFF;
+}
+
+
+.Input{
+	background: white;
+	border-radius: 15px;
+	border: solid 3px $main_color;
+	font-weight: 500;
+	@include adaptiv-value("font-size", 21, 11, 0);
+	@include adaptiv-value("padding-top", 10, 5, 0);
+	@include adaptiv-value("padding-bottom", 10, 5, 0);
+	@include adaptiv-value("padding-left", 20, 10, 0);
+	@include adaptiv-value("padding-right", 20, 10, 0);
+	line-height: 10px;
+	color: #000000;
+	opacity: 0.6;
+	transition: 0.3s;
+
+	&:focus{
+		border: solid 3px black;
+		opacity: 0.8;
+	}
+}
+
+.Button{
+	font-weight: 700;
+	@include adaptiv-value("font-size", 25, 12, 0);
+	@include adaptiv-value("line-height", 30, 18, 0);
+	background: #0C1117;
+	color: white;
+	border-radius: 20px;
+	@include adaptiv-value("padding-top", 10, 5, 0);
+	@include adaptiv-value("padding-bottom", 10, 5, 0);
+	@include adaptiv-value("padding-left", 20, 15, 0);
+	@include adaptiv-value("padding-right", 20, 15, 0);
+	margin-right: 12px;
+	transition: 0.4s;
+
+	&:hover{
+
+		background: white;
+		color: #0C1117;
+	}
+}
+

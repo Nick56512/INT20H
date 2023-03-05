@@ -1,0 +1,87 @@
+header{
+	width: 100%;
+	@include adaptiv-value("height", 80, 40, 0);
+	background: white;
+	z-index: 100;
+	position: relative;
+
+	.navigation{
+		@include adaptiv-value("height", 80, 40, 0);
+		display: flex;
+	   justify-content: space-between;
+
+		*{
+			align-self: center;
+		}
+
+		.logo{
+			display: flex;
+			gap: 8px;
+			margin: -6px 0;
+			font-weight: 700;
+
+			.logo__img{
+				@include adaptiv-value("margin-top", 16, 6, 0);
+				@include adaptiv-value("margin-bottom", 16, 8, 0);
+			}
+
+			.logo__text{
+				@include adaptiv-value("font-size", 28, 16, 0);
+			}
+
+		}
+
+		.navigation__main{
+			display: flex;
+			@include adaptiv-value("gap", 30, 10, 0);
+		}
+
+			.user{
+				border-radius: 15px;
+				border: 2px solid $main_color;
+				padding: 6px 7px;
+				transition: 0.4s;
+
+			}
+
+			.username{
+				@include adaptiv-value("font-size", 16, 10, 0);
+				color: $main_color;
+				font-weight: 700;
+				span{
+					@media (max-width: 390px){
+						display: none;
+					}
+				}
+			}
+		
+
+		.header__link{
+			@include adaptiv-value("font-size", 16, 10, 0);
+			font-weight: 600;
+			color: $main_color;
+			transition: 0.4s;
+
+		}
+	}
+
+	.navigation__user{
+		display: flex;
+		gap: 8px;
+	.avatar{
+		border-radius: 100px;
+		aspect-ratio: 1/1;
+		height: 35px;
+		object-fit: cover;
+		object-position: center;
+	}
+	}
+
+}
+
+.Land{
+	background-image: linear-gradient(93.56deg, #4D9ED3 0.41%, #173446 100.12%);
+	-webkit-background-clip: text;
+  	-webkit-text-fill-color: transparent;
+	font-weight: 700;
+}
