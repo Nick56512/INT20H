@@ -52,7 +52,7 @@ namespace WorkWaveAPI.Controllers
             {
                 achievmentToTest = achievments.FirstOrDefault(a => a.Name == $"{chatNumber}th chat")!;
                 if (achievmentToTest == null)
-                    newAchievments.Add(await repository.GetByName($"Congratulations! It is your {chatNumber} chat"));
+                    newAchievments.Add(await repository.GetByName($"Congratulations! It is your {chatNumber}th chat"));
             }
             else if (currentUser.DescriptionUser!=null) {
                 achievmentToTest = achievments.FirstOrDefault(a => a.Name == $"I know you)")!;
