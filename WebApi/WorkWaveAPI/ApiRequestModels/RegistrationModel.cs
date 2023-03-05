@@ -11,5 +11,7 @@
         public string Country { get; set; }
         public double WorkExperience { get; set; }
         public string UserDescription { get; set; }
+
+        public IFormFile Avatar { get; set; }
     }
 }

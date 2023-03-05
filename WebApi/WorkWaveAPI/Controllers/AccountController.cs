@@ -9,6 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using WorkWaveAPI.ApiConfig;
 using WorkWaveAPI.ApiRequestModels;
+using WorkWaveAPI.Managers;
 
 namespace WorkWaveAPI.Controllers
 {
@@ -24,10 +25,19 @@ namespace WorkWaveAPI.Controllers
             this.signInManager = signInManager;
         }
         [HttpPost("/registration")]
-        public async Task<ActionResult> Registration([FromBody] RegistrationModel model)
+        public async Task<ActionResult> Registration([FromBody] RegistrationModel model, [FromServices] IWebHostEnvironment _host)
         {
             if (ModelState.IsValid)
             {
+                string filePath = "";
+                string base64str = "";
+                if (model.Avatar != null)
+                {
+                    string uploads = Path.Combine(_host.WebRootPath, "uploads");
+                    filePath = await FileManager.CopyToAsync(model.Avatar, uploads);
+                    base64str = Base64Encoder.GetBase64String(model.Avatar);
+                }
+
                 User user = new User
                 {
                     Id=Guid.NewGuid().ToString(),
@@ -39,10 +49,13 @@ namespace WorkWaveAPI.Controllers
                     WorkExperience=model.WorkExperience,
                     DescriptionUser=model.UserDescription,
                     UserName=model.UserName,
+                    PhotoBase64=base64str,
+                    PhotoPath=filePath 
                 };
                 var result = await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+
                     return Ok();
                 }
                 else

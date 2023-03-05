@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WorkWaveAPI.ApiRequestModels;
 
 namespace WorkWaveAPI.Controllers
@@ -49,7 +50,8 @@ namespace WorkWaveAPI.Controllers
                     OwnerId =userId,
                     Categories=categoriesId.Select(x=>_projectCategory.GetById(x)).ToArray()
                 };
-                return Ok(project);
+                _projectsRepository.Add(project);
+                return Ok(project.Id);
                 
             }
             return BadRequest(ModelState);
@@ -101,13 +103,17 @@ namespace WorkWaveAPI.Controllers
                 {
                     users.Add(await _userManager.FindByIdAsync(member.UserId));
                 }
+                var categories = _projectsRepository.GetAll()
+                    .Where(x => x.Id == proj.Id)
+                    .Include(x => x.Categories)
+                    .First();
                 var res = new
                 {
                     projectName = proj.Name,
                     projectDescriptio = proj.Description,
                     isOpen = proj.IsOpen,
                     rating = proj.Rating,
-                    categories = proj.Categories.Select(x => x.Name),
+                    categories = categories.Categories.Select(x => x.Name),
                     members = users.ToArray(),
                     owner = proj.Owner
                 };
