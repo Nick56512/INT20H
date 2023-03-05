@@ -3,6 +3,7 @@ using DAL.Models;
 using DAL.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using WorkWaveAPI.ApiRequestModels;
 
 namespace WorkWaveAPI.Controllers
 {
+    [DisableCors]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/v2/[controller]")]
@@ -91,6 +93,12 @@ namespace WorkWaveAPI.Controllers
             }
             return BadRequest(ModelState);
         }
+        [HttpGet("/getAllProjects")]
+        public Project[] GetAll()
+        {
+            return _projectsRepository.GetAll().ToArray();
+        }
+
         [HttpGet("/getProject/{projectId}")]
         public async Task<IActionResult>Get(int projectId)
         {
