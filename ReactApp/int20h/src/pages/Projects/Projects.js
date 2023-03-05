@@ -5,8 +5,35 @@ import useInput from "../../hooks/useInput"
 import ListForCategories from "../../atoms/ListForCategories"
 
 function Projects(){
+		let projs = [
+			{name: 'YouTube',
+			description: 'Try to copy a video viewing platform',
+			categories: [{name: 'Design', id:1}, {name: 'Frontend', id:2}, {name: 'C#', id:3}],
+			id: 1
+			},
+			{name: 'Facebook 2.0',
+			description: 'Social network by the most monopilistic company',
+			categories: [{name: 'С#', id:2}, {name: 'Devops', id:3}],
+			id: 2
+			},
+			{name: 'Telegram',
+			description: 'Messanger',
+			categories: [{name: 'C++', id:2}, {name: 'Frontend', id:3}],
+			id: 3
+			},
+			{name: 'Copy of Spotify',
+			description: 'ahgdgergerahaha',
+			categories: [{name: 'C#', id:2}, {name: 'Swift', id:3}],
+			id: 4
+			},
+			{name: 'GitLab',
+			description: 'ahgdgergerahaha',
+			categories: [{name: 'C++', id:2}, {name: 'Mobile Develop', id:3}],
+			id: 5
+			},
+		]
 
-		const [projects, setProjects] = useState()
+		const [projects, setProjects] = useState(projs)
 		const [categories, setCategories] = useState([])
 		const [catForList, setCatForList] = useState([])
 		const [cat, setCat] = useState('Усі')
@@ -25,7 +52,7 @@ function Projects(){
 			if (cat === 'Усі'){
 				return projects
 			}
-			return projects.filter(project => {
+			return projs.filter(project => {
 				return project.categories.some(catr => catr.name === cat);
 			});
 	
@@ -41,7 +68,7 @@ function Projects(){
 	async function fetchCategories() {
       const response = await fetch('http://mirik297-001-site1.ftempurl.com/getallcategories')
       const data = await response.json()
-      setCategories(data)
+      await setCategories(data)
 		console.log(categories)
 		cut()
     }
@@ -49,15 +76,13 @@ function Projects(){
 	 async function fetchProjects() {
       const response = await fetch('http://mirik297-001-site1.ftempurl.com/getAllProjects')
       const data = await response.json()
-		console.log(data)
-      setProjects(data)
+      await setProjects(data)
 
     }
 			
 
 	useEffect(() => {
     fetchCategories();
-	 fetchProjects();
 	}, [catForList])
 
 

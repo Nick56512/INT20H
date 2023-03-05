@@ -25,7 +25,7 @@ function User(){
 			{name: 'LolOlo',
 			description: 'ahgdgergerahaha',
 			categories: [{name: 'c#', id:1}, {name: 'js', id:2}, {name: 'pascal', id:3}],
-			id: 1
+			id: 2
 			},
 		]
 		let teams=[
@@ -37,18 +37,18 @@ function User(){
 			{name: 'KPI Team',
 			description: 'This is KPI chat',
 			categories: [{name: 'WPF', id:1}, {name: 'JS', id:2}],
-			id: 1
+			id: 2
 			},
 
 			{name: 'TietoCommand',
 			description: 'Angular project',
 			categories: [{name: 'Angular', id:1}, {name: 'Kotlin', id:2}, {name: 'Android', id:3}],
-			id: 1
+			id: 3
 			},
 			{name: 'React',
 			description: 'React team chat',
 			categories: [{name: 'React', id:1}, {name: 'JavaScript', id:2}],
-			id: 1
+			id: 4
 			},
 		]
 
@@ -59,7 +59,7 @@ function User(){
 			<div className="user-page__block-1">
 				<img src={require("../../assets/avatar.png")}></img>
 				<div>
-					<h4>Name<br></br>LastName</h4>
+					<h4>{name}<br></br>{lastName}</h4>
 					<h5>Web-developer</h5>
 				</div>
 				<div>
