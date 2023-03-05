@@ -1,6 +1,7 @@
 ﻿using DAL.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -8,6 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using WorkWaveAPI.ApiConfig;
 using WorkWaveAPI.ApiRequestModels;
+using WorkWaveAPI.Managers;
 
 namespace WorkWaveAPI.Controllers
 {
@@ -22,12 +24,20 @@ namespace WorkWaveAPI.Controllers
             this.userManager = userManager;
             this.signInManager = signInManager;
         }
-        [HttpPost]
-        [Route("/registration")]
-        public async Task<ActionResult> Registration([FromBody] RegistrationModel model)
+        [HttpPost("/registration")]
+        public async Task<ActionResult> Registration([FromBody] RegistrationModel model, [FromServices] IWebHostEnvironment _host)
         {
             if (ModelState.IsValid)
             {
+                string filePath = "";
+                string base64str = "";
+                if (model.Avatar != null)
+                {
+                    string uploads = Path.Combine(_host.WebRootPath, "uploads");
+                    filePath = await FileManager.CopyToAsync(model.Avatar, uploads);
+                    base64str = Base64Encoder.GetBase64String(model.Avatar);
+                }
+
                 User user = new User
                 {
                     Id=Guid.NewGuid().ToString(),
@@ -39,10 +49,13 @@ namespace WorkWaveAPI.Controllers
                     WorkExperience=model.WorkExperience,
                     DescriptionUser=model.UserDescription,
                     UserName=model.UserName,
+                    PhotoBase64=base64str,
+                    PhotoPath=filePath 
                 };
                 var result = await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+
                     return Ok();
                 }
                 else
@@ -56,8 +69,7 @@ namespace WorkWaveAPI.Controllers
             return BadRequest(ModelState);
         }
 
-        [HttpPost]
-        [Route("/login")]
+        [HttpPost("/login")]
         public async Task<ActionResult> Token([FromBody] LoginModel model)
         {
             if (ModelState.IsValid)
@@ -67,10 +79,6 @@ namespace WorkWaveAPI.Controllers
                 if (res.Succeeded)
                 {
                     var claims = new Claim[] { new Claim(ClaimTypes.Name, user.UserName) };
-                    //user.PortfolioProjects.Add(new PortfolioProject
-                    //{
-                    //    Title = ""
-                    //});
                     var timeNow = DateTime.Now;
                     var token = new JwtSecurityToken
                     (
@@ -85,6 +93,7 @@ namespace WorkWaveAPI.Controllers
                     var response = new
                     {
                         access_token = encodedJwt,
+                        userId=user.Id,
                         name = user.Name,
                         lastname = user.Lastname,
                         email = user.Email,

@@ -1,5 +1,6 @@
 using DAL;
 using DAL.Models;
+using DAL.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,32 @@ namespace WorkWaveAPI
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+
+            builder.Services.AddScoped<IRepository<ProjectCategory>, ProjectCategoryRepository>();
+            builder.Services.AddScoped<ProjectCategoryRepository, ProjectCategoryRepository>();
+
+            builder.Services.AddScoped<IRepository<PortfolioProject>, PortfolioRepository>();
+            builder.Services.AddScoped<PortfolioRepository, PortfolioRepository>();
+
+            builder.Services.AddScoped<IRepository<Achievment>, AchievmentRepository>();
+            builder.Services.AddScoped<AchievmentRepository, AchievmentRepository>();
+
+            builder.Services.AddScoped<IRepository<Chat>, ChatRepository>();
+            builder.Services.AddScoped<ChatRepository, ChatRepository>();
+
+            builder.Services.AddScoped<IRepository<Member>, MemberRepository>();
+            builder.Services.AddScoped<MemberRepository, MemberRepository>();
+
+            builder.Services.AddScoped<IRepository<Message>, MessageRepository>();
+            builder.Services.AddScoped<MessageRepository, MessageRepository>();
+
+            builder.Services.AddScoped<IRepository<Project>, ProjectRepository>();
+            builder.Services.AddScoped<ProjectRepository, ProjectRepository>();
+
+            builder.Services.AddScoped<IRepository<Team>, TeamRepository>();
+            builder.Services.AddScoped<TeamRepository, TeamRepository>();
+
 
             var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
 
@@ -71,6 +98,13 @@ namespace WorkWaveAPI
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseCors((opt) =>
+            {
+                opt.AllowAnyOrigin();
+                opt.AllowAnyMethod();
+                opt.AllowAnyHeader();
+            });
 
             app.UseHttpsRedirection();
 
