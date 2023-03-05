@@ -22,7 +22,7 @@ function SignIn(){
 
 	async function Login(){
 		let userData = {
-			"email": inputEmail.value,
+			"login": inputEmail.value,
 			"password": inputPassword.value
 		}
 			let response = await fetch('http://mirik297-001-site1.ftempurl.com/login', {

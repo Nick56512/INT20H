@@ -64,6 +64,7 @@ function Projects(){
 			}
 			
 		}, [searchQuery, filteredPosts])
+		
 			
 
 	useEffect(() => {

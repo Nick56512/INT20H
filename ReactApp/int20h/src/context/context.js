@@ -4,7 +4,7 @@ const Context = createContext();
 
 export const StateContext = ({ children }) => {
 
-	const [isAuth, setIsAuth] = useState(true)
+	const [isAuth, setIsAuth] = useState(false)
 	const [name, setName] = useState('Name')
 	const [lastName, setLastName] = useState('Lastname')
 	const [hasPhoto, setHasPhoto] = useState(false)
