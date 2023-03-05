@@ -13,7 +13,7 @@ namespace WorkWaveAPI.Controllers
 {
     [DisableCors]
     [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+   
     [Route("api/v2/[controller]")]
     public class ProjectController : Controller
     {
@@ -31,7 +31,7 @@ namespace WorkWaveAPI.Controllers
             this._projectCategory = _projectCategory;
             this._memberRepository=memberRepository;
         }
-
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost("/addNewProject")]
         public async Task<ActionResult> AddNewProject([FromBody]AddProjectModel model)
         {
@@ -58,7 +58,7 @@ namespace WorkWaveAPI.Controllers
             }
             return BadRequest(ModelState);
         }
-
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost("/closeProject/{projectId}")]
         public async Task<ActionResult> CloseProject(int projectId)
         {
@@ -77,7 +77,7 @@ namespace WorkWaveAPI.Controllers
         }
 
 
-
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpDelete("/deleteProject/{projectId}")]
         public async Task<ActionResult> DeleteProject(int projectId)
         {
@@ -94,11 +94,11 @@ namespace WorkWaveAPI.Controllers
             return BadRequest(ModelState);
         }
         [HttpGet("/getAllProjects")]
-        public Project[] GetAll()
+        public IActionResult GetAll()
         {
-            return _projectsRepository.GetAll().ToArray();
+            return Json( _projectsRepository.GetAll().ToList());
         }
-
+        
         [HttpGet("/getProject/{projectId}")]
         public async Task<IActionResult>Get(int projectId)
         {

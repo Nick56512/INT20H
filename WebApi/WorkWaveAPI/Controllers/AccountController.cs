@@ -13,7 +13,7 @@ using WorkWaveAPI.Managers;
 
 namespace WorkWaveAPI.Controllers
 {
-    [DisableCors]
+    //[DisableCors]
     [ApiController]
     [Route("api/v2/[controller]")]
     public class AccountController : Controller
