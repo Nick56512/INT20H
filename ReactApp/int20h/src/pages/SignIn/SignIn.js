@@ -25,7 +25,7 @@ function SignIn(){
 			"email": inputEmail.value,
 			"password": inputPassword.value
 		}
-			let response = await fetch('', {
+			let response = await fetch('http://mirik297-001-site1.ftempurl.com/login', {
 			method: 'POST',
 			headers: {
 			'Content-Type': 'application/json'},
@@ -41,7 +41,7 @@ function SignIn(){
 				setName(res.name)
 				setLastName(res.lastname)
 				setIsAuth(true)
-				navigate('/ingredients')
+				navigate('/projects')
 			})}
 			if(response.status == 400){
 				setError(['Неправильні дані або такого користувача не існує!'])

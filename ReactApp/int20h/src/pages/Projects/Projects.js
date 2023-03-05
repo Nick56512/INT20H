@@ -5,33 +5,13 @@ import useInput from "../../hooks/useInput"
 import ListForCategories from "../../atoms/ListForCategories"
 
 function Projects(){
-		let projs = [
-			{name: 'LolOlo',
-			description: 'ahahaha',
-			categories: [{name: 'c#', id:1}, {name: 'js', id:2}, {name: 'pascal', id:3}],
-			id: 1
-			},
-			{name: 'MMLolOlo',
-			description: 'ahgdgergerahaha',
-			categories: [{name: 'js', id:2}, {name: 'pascal', id:3}],
-			id: 1
-			},
-		]
 
-		const [projects, setProjects] = useState(projs)
-		const [filtered, setFiltered] = useState([])
-		const [categories, setCategories] = useState([{name: 'c#', id:1}, {name: 'js', id:2}, {name: 'pascal', id:3}, {name: 'hdgr', id:4}, {name: 'govnoshop', id:5}])
+		const [projects, setProjects] = useState()
+		const [categories, setCategories] = useState([])
 		const [catForList, setCatForList] = useState([])
-		const [undf, setUndf] = useState(false)
-		const [isLoading, setLoading] = useState(false)
 		const [cat, setCat] = useState('Усі')
-		const [page, setPage] = useState(1)
 		
 		const searchQuery = useInput('')
-
-		useEffect(() => {
-			cut()
-		}, [])
 
 		function cut(){
 			let time = []
@@ -45,45 +25,52 @@ function Projects(){
 			if (cat === 'Усі'){
 				return projects
 			}
-			else{
-				for(let j = 0; j < projects.length; j++){
-					for(let i = 0; i < projects[j].categories.length; i++){
-						if(projects[j].categories[i].name === cat){
-							return projects.filter(item => item.categories[i].name === cat)
-						}
-					}
-				}
-			}
+			return projects.filter(project => {
+				return project.categories.some(catr => catr.name === cat);
+			});
+	
 		}, [projects, cat])
 
 		const sortedAndSearched = useMemo(() => {
+			if (filteredPosts){
 				return filteredPosts.filter(item => item.name.toLowerCase().includes(searchQuery.value.toLowerCase()))
+			}
 			
 		}, [searchQuery, filteredPosts])
+
+	async function fetchCategories() {
+      const response = await fetch('http://mirik297-001-site1.ftempurl.com/getallcategories')
+      const data = await response.json()
+      setCategories(data)
+		console.log(categories)
+		cut()
+    }
+
+	 async function fetchProjects() {
+      const response = await fetch('http://mirik297-001-site1.ftempurl.com/getAllProjects')
+      const data = await response.json()
+		console.log(data)
+      setProjects(data)
+
+    }
 			
 
-
 	useEffect(() => {
-		getRecipes()
-	}, [])
+    fetchCategories();
+	 fetchProjects();
+	}, [catForList])
 
 
-	async function getRecipes(){
-			setLoading(true)
-			setTimeout(async () => {
-				console.log('hghgf')
-			}, 300)
-		}
 
 	return(
 		<div className="container projects-page-main">
 			<div className="projects-page projects-page__block-1">
-				<input value={searchQuery.value} onChange={searchQuery.onChange} placeholder="Пошук проєкту.." type="text" />
-				<ListForCategories setSelected={setCat} items={catForList}></ListForCategories>
+				<input style={{marginBottom: '20px'}} value={searchQuery.value} onChange={searchQuery.onChange} placeholder="Пошук проєкту.." type="text" />
+				<ListForCategories  onClick={cut} setSelected={setCat} items={catForList}></ListForCategories>
 			</div>
 			<div className="projects-page projects-page__block-2">
 				
-				{sortedAndSearched.map((item) => (
+				{sortedAndSearched ? sortedAndSearched.map((item) => (
 						<div className="project" key={item.id}>
 							<h4 className="project-title">{item.name}</h4>
 							<h5 className="project-description">{item.description}</h5>
@@ -93,7 +80,8 @@ function Projects(){
 								))}
 							</div>
 						</div>
-					))}
+					))
+				: null}
 					
 			</div>
 			

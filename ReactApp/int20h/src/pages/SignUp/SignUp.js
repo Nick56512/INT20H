@@ -42,11 +42,12 @@ function SignUp(){
 				"workExperience":Number(inputExp.value),
 				"userDescription":inputDescription.value
 			}
-			let response = await fetch(`local/registration`, {
+			let response = await fetch(`http://mirik297-001-site1.ftempurl.com/registration`, {
 				method: 'POST',
 				headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
 				},
+				mode: 'cors',
 				body: JSON.stringify(userData)
 				})
 			console.log(response)
