@@ -57,13 +57,7 @@ function Projects(){
 		}, [projects, cat])
 
 		const sortedAndSearched = useMemo(() => {
-			if (filteredPosts === undefined){
-				setUndf(true)
-				return []
-			}
-			else{
 				return filteredPosts.filter(item => item.name.toLowerCase().includes(searchQuery.value.toLowerCase()))
-			}
 			
 		}, [searchQuery, filteredPosts])
 			
