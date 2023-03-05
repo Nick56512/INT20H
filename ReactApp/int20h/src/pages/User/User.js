@@ -28,6 +28,31 @@ function User(){
 			id: 1
 			},
 		]
+		let teams=[
+			{name: 'WebHunters',
+			description: 'Task manager',
+			categories: [{name: 'Java', id:1}, {name: 'Kotlin', id:2}, {name: 'Android', id:3}],
+			id: 1
+			},
+			{name: 'KPI Team',
+			description: 'This is KPI chat',
+			categories: [{name: 'WPF', id:1}, {name: 'JS', id:2}],
+			id: 1
+			},
+
+			{name: 'TietoCommand',
+			description: 'Angular project',
+			categories: [{name: 'Angular', id:1}, {name: 'Kotlin', id:2}, {name: 'Android', id:3}],
+			id: 1
+			},
+			{name: 'React',
+			description: 'React team chat',
+			categories: [{name: 'React', id:1}, {name: 'JavaScript', id:2}],
+			id: 1
+			},
+		]
+
+
 
 	return(
 		<div className="user-page container">
@@ -92,7 +117,15 @@ function User(){
 				: null}
 				{selectedPage === "Команди" ?
 
-				<div>Тимі</div>
+					<div>
+					{teams.map((item) => (
+						<div className="project" key={item.id}>
+							<h4 className="project-title">{item.name}</h4>
+							<h5 className="project-description">{item.description}</h5>
+							
+						</div>
+					))}
+					</div>
 				
 				: null}
 
