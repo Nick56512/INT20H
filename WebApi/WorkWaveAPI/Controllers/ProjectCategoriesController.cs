@@ -27,7 +27,7 @@ namespace WorkWaveAPI.Controllers
         }
 
         [HttpGet]
-        [Route("/getcategorybyid")]
+        [Route("/getcategorybyid/{id}")]
         public async Task<ActionResult> GetCategoryById(int id)
         {
             var category = await _repository.GetByIdAsync(id);
@@ -35,11 +35,11 @@ namespace WorkWaveAPI.Controllers
             if (category == null)
                 return NotFound();
             else
-                return Json(category);
+                return Json(new {categoryName=category.Name,Id=category.Id });
         }
 
         [HttpGet]
-        [Route("/getcategorybyname")]
+        [Route("/getcategorybyname/{name}")]
         public async Task<ActionResult> GetCategoryByName(string name)
         {
             var category = await _repository.GetAll().FirstOrDefaultAsync(c => c.Name == name);
@@ -47,7 +47,7 @@ namespace WorkWaveAPI.Controllers
             if (category == null)
                 return NotFound();
             else
-                return Json(category);
+                return Json(new { categoryName = category.Name, Id = category.Id });
         }
     }
 }

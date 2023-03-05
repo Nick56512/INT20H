@@ -1,5 +1,7 @@
 ﻿using DAL.Models;
 using DAL.Repository;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WorkWaveAPI.ApiRequestModels;
@@ -7,6 +9,7 @@ using WorkWaveAPI.ApiRequestModels;
 namespace WorkWaveAPI.Controllers
 {
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/v2/[controller]")]
     public class MembersController : Controller
     {
